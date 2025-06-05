@@ -1,0 +1,18 @@
+<h1>DragonBall Page</h1>
+<hr>
+
+<section class="row">
+  <h4>Igual a Dragon Ball pero con componentes separados</h4>
+  <hr>
+  <div class="col-12 col-sm-6">
+    <dragonball-character-add
+      (newCharacter)="addCharacter($event)"
+    />
+  </div>
+  <div class="col-12 col-sm-6">
+    <dragonball-character-list
+      listName = "Listado fuertes (menor a 500)"
+      [characters]="characters()"
+    />
+  </div>
+</section>
