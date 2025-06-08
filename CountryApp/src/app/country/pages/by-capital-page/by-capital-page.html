@@ -1,3 +1,22 @@
-<app-search-input placeholder="Buscar por capital"></app-search-input>
+<app-search-input
+  placeholder="Buscar por capital"
+  (value)="query.set($event)"
+></app-search-input>
 
-<app-list></app-list>
+@if (!countryResource.error() && countryResource.isLoading() == false) {
+<app-list [countries]="this.countryResource.value()"></app-list>
+} @else {
+<h3>{{ countryResource.error() }}</h3>
+}
+
+<!-- Forma normal -->
+<!-- <app-search-input
+  placeholder="Buscar por capital"
+  (value)="onSearch($event)"
+></app-search-input>
+
+ @if (!isError()) {
+<app-list [countries]="this.countries()"></app-list>
+} @else {
+<h3>{{ isError() }}</h3>
+} -->
