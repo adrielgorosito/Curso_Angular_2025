@@ -10,7 +10,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './list.css',
 })
 export class List {
-  countries = input.required<Country[]>();
+  countries = input.required<Country[] | undefined>();
 
   errorMessage = input<string | unknown>();
   isLoading = input<boolean>(false);

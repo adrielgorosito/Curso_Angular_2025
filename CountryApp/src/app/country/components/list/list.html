@@ -56,7 +56,7 @@
       </tr>
       }
       <!-- Mostrar mensaje de vacío solo si no hay error ni está cargando -->
-      @else if (countries().length === 0) {
+      @else if (countries()?.length === 0) {
       <tr>
         <td colspan="8" class="text-center">No se encontraron países</td>
       </tr>
