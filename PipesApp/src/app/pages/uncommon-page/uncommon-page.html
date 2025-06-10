@@ -1,1 +1,84 @@
-<p>uncommon-page works!</p>
+<section class="mx-5 mb-5">
+  <h1 class="text-2xl font-bold">Pipes no tan comunes</h1>
+  <h3 class="text-xl font-thin">Pipes incluidos en Angular</h3>
+</section>
+
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+  <app-card title="i18nSelectPipe">
+    <p>Hola mundo desde el componente padre.</p>
+
+    <p class="mt-5">
+      Saludos <span class="font-bold">{{ client().name }}!</span>
+    </p>
+    <p>
+      Es un placer
+      <span class="font-bold">
+        {{ client().gender | i18nSelect: invitationMap }}
+      </span>
+      al evento.
+    </p>
+    <button (click)="changeClient()" class="btn btn-primary">
+      Cambiar cliente
+    </button>
+  </app-card>
+
+  <app-card title="i18nPluralPipe">
+    <p class="mt-5">
+      Actualmente
+      <span class="font-bold">
+        {{ clients().length | i18nPlural: clientsMap() }}
+      </span>
+      esperando.
+    </p>
+    <button
+      (click)="deleteClient()"
+      [disabled]="clients().length == 0"
+      class="btn btn-primary"
+    >
+      Borrar un cliente de la lista de espera
+    </button>
+  </app-card>
+
+  <app-card title="SlicePipe">
+    <b class="mt-5">Original</b>
+    <p class="text-primary">{{ clients().join(', ')}}</p>
+
+    <b class="mt-2">Slice:0:2</b>
+    <p class="text-primary">{{ clients() | slice:0:2 }}</p>
+    <b class="mt-2">Slice:2:4</b>
+    <p class="text-primary">{{ clients() | slice:2:5 }}</p>
+  </app-card>
+
+  <app-card title="JsonPipe">
+    <pre class="text-primay mt-5">{{ clients() | json }}</pre>
+    <pre class="text-primay">{{ client() | json }}</pre>
+    <p class="text-primay">{{ clients().join(', ') | json }}</p>
+  </app-card>
+
+  <app-card title="KeyValuePipe">
+    <!-- <pre class="text-primay mt-5">{{ profile | keyvalue | json }}</pre> -->
+    <ul class="mt-5">
+      @for (item of profile | keyvalue; track $index) {
+      <li>
+        <strong class="text-primary">{{ item.key }}</strong>
+        <span> {{ item.value }} </span>
+      </li>
+      }
+    </ul>
+  </app-card>
+
+  <app-card title="AsyncPipe">
+    <!-- AsyncPipe con promesa -->
+    <p class="mt-5">{{ promiseValue1 | async }}</p>
+
+    @if (promiseValue2 | async; as value) {
+    <p class="text-primary">AsyncPipe dentro del if: {{ value }}</p>
+    } @else {
+    <p class="text-accent">Esperando la promesa2...</p>
+    }
+
+    <!-- AsyncPipe con observable -->
+    <p class="font-bold mt-5">Observable</p>
+    <p>{{ myObservableTimer | async }}</p>
+  </app-card>
+</div>
