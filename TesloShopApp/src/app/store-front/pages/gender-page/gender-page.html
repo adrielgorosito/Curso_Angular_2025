@@ -21,3 +21,8 @@
   }
 </div>
 }
+
+<app-pagination
+  [currentPage]="paginationService.currentPage()"
+  [pages]="productsResource.value()?.pages ?? 0"
+></app-pagination>
