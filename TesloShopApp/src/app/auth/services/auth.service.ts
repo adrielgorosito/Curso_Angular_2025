@@ -15,7 +15,7 @@ export class AuthService {
   private http = inject(HttpClient);
   private _authStatus = signal<AuthStatus>('checking');
   private _user = signal<User | null>(null);
-  private _token = signal<string | null>(null);
+  private _token = signal<string | null>(localStorage.getItem('token'));
 
   checkStatusResource = rxResource({
     stream: () => this.checkStatus(),
@@ -38,7 +38,7 @@ export class AuthService {
       })
       .pipe(
         map((response) => {
-          return this.handleAuthSucces(response);
+          return this.handleAuthSuccess(response);
         }),
         catchError((error: any) => {
           return this.handleAuthError(error);
@@ -54,23 +54,17 @@ export class AuthService {
       return of(false);
     }
 
-    return this.http
-      .get<AuthResponse>(`${API_URL}/auth/check-status`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    return this.http.get<AuthResponse>(`${API_URL}/auth/check-status`).pipe(
+      map((response) => {
+        return this.handleAuthSuccess(response);
+      }),
+      catchError((error: any) => {
+        return this.handleAuthError(error);
       })
-      .pipe(
-        map((response) => {
-          return this.handleAuthSucces(response);
-        }),
-        catchError((error: any) => {
-          return this.handleAuthError(error);
-        })
-      );
+    );
   }
 
-  private handleAuthSucces(response: AuthResponse) {
+  private handleAuthSuccess(response: AuthResponse) {
     this._authStatus.set('authenticated');
     this._user.set(response.user);
     this._token.set(response.token);
