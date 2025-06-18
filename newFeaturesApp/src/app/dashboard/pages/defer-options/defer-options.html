@@ -1,0 +1,74 @@
+<app-title title="Defer Triggers"></app-title>
+
+<section class="grid grid-cols-1 mt">
+  <!-- On Interaction -->
+  @defer (on interaction) {
+  <app-heavy-loaders-fast cssClass="bg-blue-500">
+    <span>On interaction</span>
+  </app-heavy-loaders-fast>
+  } @placeholder {
+  <div class="w-full bg-purple-500">Click en el div</div>
+  }
+
+  <hr class="mt-5 mb-5" />
+
+  <!-- On Interaction con botón -->
+  @defer (on interaction(btnInteraction)) {
+  <app-heavy-loaders-fast cssClass="bg-green-500">
+    <span>On interaction con botón</span>
+  </app-heavy-loaders-fast>
+  } @placeholder {
+  <div class="w-full bg-pink-500">Click en el botón</div>
+  }
+
+  <button
+    #btnInteraction
+    class="p-2 bg-blue-500 hover:bg-blue-700 cursor-pointer transition-all rounded text-white my-2"
+  >
+    Click me
+  </button>
+
+  <hr class="mt-5 mb-5" />
+
+  <!-- On Hover -->
+  @defer (on hover) {
+  <app-heavy-loaders-fast cssClass="bg-red-500">
+    <span>On hover</span>
+  </app-heavy-loaders-fast>
+  } @placeholder {
+  <div class="w-full bg-yellow-500">Pasar el mouse por arriba</div>
+  }
+
+  <hr class="mt-5 mb-5" />
+
+  <!-- On Immediate -->
+  @defer (on immediate) {
+  <app-heavy-loaders-fast cssClass="bg-orange-500">
+    <span>On immediate</span>
+  </app-heavy-loaders-fast>
+  } @placeholder {
+  <div class="w-full bg-orange-500">Pasar el mouse por arriba</div>
+  }
+
+  <hr class="mt-5 mb-5" />
+
+  <!-- On Immediate -->
+  @defer (on timer(3000)) {
+  <app-heavy-loaders-fast cssClass="bg-amber-950">
+    <span>On timer con 3 segundos</span>
+  </app-heavy-loaders-fast>
+  } @placeholder {
+  <div class="w-full bg-emerald-600">Esperar 3 segundos</div>
+  }
+
+  <hr class="mt-5 mb-5" />
+
+  <!-- Combinación de varios -->
+  @defer (on hover; prefetch on idle) {
+  <app-heavy-loaders-fast cssClass="bg-gray-500">
+    <span>On hover e idle</span>
+  </app-heavy-loaders-fast>
+  } @placeholder {
+  <div class="w-full bg-rose-950">Pasar el mouse por encima, luego carga</div>
+  }
+</section>
